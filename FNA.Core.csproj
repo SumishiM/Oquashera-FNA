@@ -17,6 +17,59 @@
 		<Message Importance="High" Text="No property overrides found at '$(FNASettingsPropsFilePath)'" Condition="!Exists('$(FNASettingsPropsFilePath)')" />
 		<Message Importance="High" Text="Loaded property overrides from '$(FNASettingsPropsFilePath)'" Condition="Exists('$(FNASettingsPropsFilePath)')" />
 	</Target>
+
+  <!-- Nuget package settings! -->
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+
+    <Description>FNA fork for Pyrite</Description>
+
+    <PackageId>Pyrite.FNA</PackageId>
+    <Authors>Esh Cerr</Authors>
+    <Company>Oquashera Studio</Company>
+    <PackageVersion>24.06</PackageVersion>
+
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+
+    <!-- Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+    <!-- Embed source files that are not tracked by the source control manager in the PDB -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+    <!-- Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="App.config" Pack="true" PackagePath="contentFiles\FNA.dll.config" />
+    <None Include="README.md" Pack="true" PackagePath="\" Visible="false" />
+
+    <None Include="nuget\FNA.props" Pack="true" PackagePath="buildTransitive\FNA.props" Visible="false" />
+    <None Include="nuget\LICENSE.txt" Pack="true" PackagePath="\LICENSE.txt" Visible="false" />
+
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+  </ItemGroup>
+
+  <Target Name="DownloadExpandAndPackFNALibs" BeforeTargets="DispatchToInnerBuilds" Condition="'$(PackFNALibs)' == true">
+
+    <PropertyGroup>
+      <FNALibsRoot>fnalibs\</FNALibsRoot>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <None Include="$(FNALibsRoot)x64\*.*" Pack="true" PackagePath="runtimes\win-x64\native" />
+      <None Include="$(FNALibsRoot)x86\*.*" Pack="true" PackagePath="runtimes\win-x86\native" />
+      <None Include="$(FNALibsRoot)osx-x64\*.*" Pack="true" PackagePath="runtimes\osx-x64\native" />
+      <None Include="$(FNALibsRoot)lib64\*.*" Pack="true" PackagePath="runtimes\linux-x64\native" />
+      <None Include="$(FNALibsRoot)libaarch64\*.*" Pack="true" PackagePath="runtimes\linux-arm64\native" />
+    </ItemGroup>
+
+  </Target>
+  <!-- End of nuget package settings! -->
+
 	<ItemGroup>
 		<Compile Include="src\Audio\AudioCategory.cs" />
 		<Compile Include="src\Audio\AudioChannels.cs" />
