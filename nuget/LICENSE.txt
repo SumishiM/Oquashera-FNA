@@ -1,6 +1,6 @@
-Pyrite.FNA is released under the Microsoft Public License.
+Oquashera.FNA is released under the Microsoft Public License.
 
-Pyrite.FNA uses FNA, released under the Microsoft Public License.
+Oquashera.FNA uses FNA, released under the Microsoft Public License.
 
 FNA uses LzxDecoder.cs, released under a dual MSPL/LGPL license.
 
