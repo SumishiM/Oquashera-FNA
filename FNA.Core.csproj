@@ -22,9 +22,9 @@
   <PropertyGroup>
     <IsPackable>true</IsPackable>
 
-    <Description>FNA fork for Pyrite</Description>
+    <Description>FNA fork for Oquashera</Description>
 
-    <PackageId>Pyrite.FNA</PackageId>
+    <PackageId>Oquashera.FNA</PackageId>
     <Authors>Esh Cerr</Authors>
     <Company>Oquashera Studio</Company>
     <PackageVersion>24.06</PackageVersion>
